@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.zhangzc.wifispoof'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.zhangzc.wifispoof"
+        // LSPosed 要求 Android 8.0+，故 minSdk 26
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        // 中文 Windows 上 javac 需显式 UTF-8，否则源码中的中文字符串会乱码
+        encoding 'UTF-8'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+dependencies {
+    // Xposed API：仅编译期使用，不打进 APK。
+    // 注：de.robv.android.xposed:api:82 原托管于已关闭的 JCenter，改用本地 jar（app/libs/api-82.jar）。
+    compileOnly files('libs/api-82.jar')
+}
